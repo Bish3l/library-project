@@ -1,0 +1,13 @@
+INSERT INTO Person(name, birthyear) VALUES ('Иванов Иван Иванович', 1970);
+INSERT INTO Person(name, birthyear) VALUES ('Петров Петр Петрович', 1960);
+INSERT INTO Person(name, birthyear) VALUES ('Алексеев Алексей Алексеевич', 1989);
+INSERT INTO Person(name, birthyear) VALUES ('Познер Владимир Владимирович', 1944);
+INSERT INTO Person(name, birthyear) VALUES ('Федоров Мирон Янович', 1985);
+---
+INSERT INTO Book(title, author, yearofpublication) VALUES('Над пропастью во ржи', 'Джером Сэлинджер', 1951);
+INSERT INTO Book(title, author, yearofpublication) VALUES('День опричника', 'Владимир Сорокин', 2006);
+INSERT INTO Book(title, author, yearofpublication) VALUES('Тайные виды на гору Фудзи', 'Владимир Пелевин', 2018);
+INSERT INTO Book(title, author, yearofpublication) VALUES('Философия Java', 'Брюс Эккель', 2018);
+INSERT INTO Book(title, author, yearofpublication) VALUES('Психопатология обыденной жизни', 'Фрейд Зигмунд', 1904);
+INSERT INTO Book(title, author, yearofpublication) VALUES('Игра в бисер', 'Герман Гессе', 1943);
+INSERT INTO Book(title, author, yearofpublication) VALUES('Бытие и время', 'Мартин Хайдеггер', 1927);
