@@ -6,5 +6,14 @@
 </head>
 <body>
 <h3 th:text="${person.getName()} + ', ' + ${person.getBirthYear()}"></h3>
+<br>
+<hr>
+<form th:action="@{/people/{id}/edit(id=${person.getPerson_id()})}">
+    <input type="submit" value="Редактировать"/>
+</form>
+<br>
+<form th:method="DELETE" th:action="@{/people/{id}(id=${person.getPerson_id()})}">
+    <input type="submit" value="Удалить"/>
+</form>
 </body>
 </html>

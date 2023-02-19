@@ -1,18 +1,24 @@
 package main.models;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 public class Book {
     private int book_id;
-    @NotEmpty(message = "Book title can't be empty")
-    @Size(min = 1, max = 249, message = "Book title length must be between 1 and 250 characters")
+    private int person_id;
+    @NotEmpty(message = "Название книги не может быть пустым")
+    @Size(min = 1, max = 249, message = "Длина названия книги должна быть между 1 и 250 символами")
     private String title;
+
+    @NotEmpty(message = "У книги должен быть автор")
+    @Size(max = 100, message = "Имя автора не может быть длиннее 100 символов")
     private String author;
+
+    @Max(value = 2023, message = "Нельзя добавить книгу которая ещё не была опубликована")
     private int yearOfPublication;
 
-    Book() { }
-
+    public Book() { }
     public Book(int book_id, String title, String author, int yearOfPublication) {
         this.book_id = book_id;
         this.title = title;

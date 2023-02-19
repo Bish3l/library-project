@@ -1,5 +1,6 @@
 package main.dao;
 
+import main.models.Book;
 import main.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -27,5 +28,11 @@ public class PersonDAO {
 
     public void save(Person person) {
         jdbcTemplate.update("INSERT INTO Person(name, birthyear) VALUES(?, ?)", person.getName(), person.getBirthYear());
+    }
+    public void edit(Person person, int id) {
+        jdbcTemplate.update("UPDATE Person SET name=?, birthYear=? WHERE person_id=?", person.getName(), person.getBirthYear(), id);
+    }
+    public void delete(int id) {
+        jdbcTemplate.update("DELETE FROM Person WHERE person_id=?", id);
     }
 }

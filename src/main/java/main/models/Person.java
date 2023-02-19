@@ -2,14 +2,16 @@ package main.models;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
+import java.util.*;
 
 public class Person {
     private int person_id;
+    private List<Book> books = new ArrayList<>();
 
-    @Size(min = 1, max = 249, message = "Name length must be between 1 and 250 characters")
+    @Size(min = 1, max = 249, message = "Длина имени должна быть между 1 и 250 символами")
     private String name;
 
-    @Min(value = 1901, message = "Birth year must be greater than 1900")
+    @Min(value = 1901, message = "Год рождения должен быть больше чем 1900")
     private int birthYear;
 
     public Person() {}

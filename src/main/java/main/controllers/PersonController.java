@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.Binding;
 import javax.validation.Valid;
 
 @Controller
@@ -43,6 +44,25 @@ public class PersonController {
 
         personDAO.save(person);
 
+        return "redirect:/people";
+    }
+    @GetMapping("/{id}/edit")
+    public String editPage(@PathVariable("id") int id, Model m) {
+        m.addAttribute("person", personDAO.getPerson(id));
+        return "/people/editPersonPage";
+    }
+    @PatchMapping("/{id}")
+    public String confirmEdit(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult, @PathVariable("id") int id) {
+        if (bindingResult.hasErrors()) {
+            return "/people/editPersonPage";
+        }
+
+        personDAO.edit(person, id);
+        return "redirect:/people";
+    }
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable("id") int id) {
+        personDAO.delete(id);
         return "redirect:/people";
     }
 }
