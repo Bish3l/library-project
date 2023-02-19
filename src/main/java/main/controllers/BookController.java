@@ -1,6 +1,7 @@
 package main.controllers;
 
 import main.dao.BookDAO;
+import main.dao.PersonDAO;
 import main.models.Book;
 import main.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,11 @@ import javax.validation.Valid;
 @RequestMapping("/books")
 public class BookController {
     private BookDAO bookDAO;
+    private PersonDAO personDAO;
     @Autowired
-    BookController(BookDAO bookDAO) {
+    BookController(BookDAO bookDAO, PersonDAO personDAO) {
         this.bookDAO = bookDAO;
+        this.personDAO = personDAO;
     }
     @GetMapping("")
     public String booksPage(Model m) {
@@ -26,7 +29,18 @@ public class BookController {
     }
     @GetMapping("/{id}")
     public String bookPage(@PathVariable("id") int id, Model m) {
-        m.addAttribute("book", bookDAO.getBook(id));
+        Book b = bookDAO.getBook(id);
+        Person p;
+        if (b.getPerson_id() != null) {
+            p = personDAO.getPerson(b.getPerson_id());
+        }
+        else {
+            p = null;
+        }
+        m.addAttribute("people", personDAO.getPeople());
+        m.addAttribute("book", b);
+        m.addAttribute("emptyPerson", new Person());
+        m.addAttribute("person", p);
         return "/books/bookPage";
     }
     @GetMapping("/new")
@@ -54,6 +68,16 @@ public class BookController {
         }
 
         bookDAO.edit(book, id);
+        return "redirect:/books";
+    }
+    @PatchMapping("/{id}/assign")
+    public String assignBook(@PathVariable("id") int bookId, @ModelAttribute("person") Person p) {
+        bookDAO.assignBook(bookId, p);
+        return "redirect:/books";
+    }
+    @PatchMapping("/{id}/free")
+    public String freeBook(@PathVariable("id") int bookId) {
+        bookDAO.freeBook(bookId);
         return "redirect:/books";
     }
     @DeleteMapping("/{id}")

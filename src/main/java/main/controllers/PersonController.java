@@ -1,6 +1,8 @@
 package main.controllers;
 
+import main.dao.BookDAO;
 import main.dao.PersonDAO;
+import main.models.Book;
 import main.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,15 +12,18 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.naming.Binding;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/people")
 public class PersonController {
     PersonDAO personDAO;
+    BookDAO bookDAO;
 
     @Autowired
-    public PersonController(PersonDAO personDAO) {
+    public PersonController(PersonDAO personDAO, BookDAO bookDAO) {
         this.personDAO = personDAO;
+        this.bookDAO = bookDAO;
     }
 
     @GetMapping("")
@@ -28,6 +33,8 @@ public class PersonController {
     }
     @GetMapping("/{id}")
     public String personPage(@PathVariable("id") int id, Model m) {
+        List<Book> books = bookDAO.getPersonsBooks(id);
+        m.addAttribute("books", books);
         m.addAttribute("person", personDAO.getPerson(id));
         return "/people/personPage";
     }

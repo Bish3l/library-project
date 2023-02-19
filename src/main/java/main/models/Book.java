@@ -3,10 +3,11 @@ package main.models;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.lang.constant.Constable;
 
 public class Book {
     private int book_id;
-    private int person_id;
+    private Integer person_id;
     @NotEmpty(message = "Название книги не может быть пустым")
     @Size(min = 1, max = 249, message = "Длина названия книги должна быть между 1 и 250 символами")
     private String title;
@@ -19,8 +20,9 @@ public class Book {
     private int yearOfPublication;
 
     public Book() { }
-    public Book(int book_id, String title, String author, int yearOfPublication) {
+    public Book(int book_id, Integer person_id, String title, String author, int yearOfPublication) {
         this.book_id = book_id;
+        this.person_id = person_id;
         this.title = title;
         this.author = author;
         this.yearOfPublication = yearOfPublication;
@@ -32,6 +34,14 @@ public class Book {
 
     public void setBook_id(int book_id) {
         this.book_id = book_id;
+    }
+
+    public Integer getPerson_id() {
+        return person_id;
+    }
+
+    public void setPerson_id(Integer person_id) {
+        this.person_id = person_id;
     }
 
     public String getTitle() {
